@@ -1,11 +1,33 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
 \newtheorem{thm}{Theorem}
+\newtheorem{prop}{Proposition}
+
+\newcommand{\nat}{\ensuremath{\mathbb{N}}}
+
 \begin{document}
 {\centering{\huge Number theory notes}}
 
 \section{Underwood Dudley}
-\begin{thm}
-  Herding cats is hard
+\begin{thm}\label{composite_2_power}
+  If $n\in \nat$ is composite, so is $2^n - 1$.
 \end{thm}
+To prove this, we prove:
+\begin{prop}
+  If $n = pq$, then $(2^p - 1)\mid (2^{pq}-1)$
+\end{prop}
+\begin{proof}
+  \[x^q - 1 = (x - 1)(1 + x + x^2 +\cdots+ x^{q-1})\]
+  From which the result follows by setting $x = 2^p$.
+\end{proof}
+
+This now immediately proves Theorem \ref{composite_2_power} by setting
+$n = pq$, which implies $(2^p - 1) \mid (2^n - 1)$. Since $p > 1$ (as $n$
+is composite), $2^p - 1 > 1$ which means $2^n - 1$ is composite.
+
+Note this also means that
+\[(2^q - 1) \mid\sum_{j=0}^{q-1}2^{j\cdotp}\]
 \end{document}
