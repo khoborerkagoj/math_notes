@@ -3,20 +3,38 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 
-\newtheorem{thm}{Theorem}
-\newtheorem{prop}{Proposition}
+\makeatletter\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist\item\relax
+      {%
+        \bfseries{#1\@addpunct{.}}}\hspace\labelsep\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}{Corollary}[thm]
+\theoremstyle{definition}
+\newtheorem{discussion}{Discussion}[thm]
 
 \newcommand{\nat}{\ensuremath{\mathbb{N}}}
 
 \begin{document}
-{\centering{\huge Number theory notes}}
+{\center{\huge Number theory notes}}
 
-\section{Underwood Dudley}
+\section{Divisibility and prime factorization}
+A lot of the following discussion is inspired by
+Theorem~\ref{composite_2_power}, which is from Underwood Dudley,
+Section~2, problem~14.
+
 \begin{thm}\label{composite_2_power}
   If $n\in \nat$ is composite, so is $2^n - 1$.
 \end{thm}
 To prove this, we prove:
-\begin{prop}
+\begin{prop}\label{2p_2pq}
   If $n = pq$, then $(2^p - 1)\mid (2^{pq}-1)$
 \end{prop}
 \begin{proof}
@@ -28,6 +46,43 @@ This now immediately proves Theorem \ref{composite_2_power} by setting
 $n = pq$, which implies $(2^p - 1) \mid (2^n - 1)$. Since $p > 1$ (as $n$
 is composite), $2^p - 1 > 1$ which means $2^n - 1$ is composite.
 
-Note this also means that
-\[(2^q - 1) \mid\sum_{j=0}^{q-1}2^{j\cdotp}\]
+\begin{cor}\label{2a_2b_gcd_match}
+  If $(a,b) > 1$, then $(2^a - 1, 2^b - 1) > 1$.
+\end{cor}
+\begin{proof}
+  Similar to the previous theorem. Note that the proof of
+  proposition~\ref{2p_2pq} does not depend on the primality of $p$ or
+  $q$. Thus if $(a,b) = g$ and $a = g\alpha$, $b = g\beta$, then we have
+  \begin{alignat*}{2}
+    (2^g - 1) & \mid (2^{g\alpha} - 1) &= 2^a - 1\\
+    (2^g - 1) & \mid (2^{g\beta}  - 1) &= 2^b - 1
+  \end{alignat*}
+  And $(2^g - 1) > 1)$ since $g > 1$ is a common divisor.
+\end{proof}
+
+\begin{discussion}
+It appears that when (not verified) $p$ and $q$ are
+relatively prime, in other words, when $(p,q) = 1$, and $a = 2^p$, we have
+\[(2^q - 1) \mid (1 + a + a^2 + a^3 + \cdots + a^{q-1})\]
+
+But it does not hold when $a$ is not of that form. For instance, when
+$q = 3$ and $a = 3$ (note, not $2^3$), we have $1 + 3 + 3^2 = 13$ which
+is not divisible by $2^3 - 1 = 7$. But, when $a = 2^2 = 4$, we have
+\[7 \mid (1 + 4 + 4^2) = 21\]
+
+When $a = 2^3 = 8$, we get $1 + 8 + 8^2 = 73$, which is prime! But in
+this case $p = q$.
+
+Does this hold in general?
+
+An outline of proof would require us to show the converse of Corollary
+\ref{2a_2b_gcd_match}, i.e.
+$(a,b) = 1 \implies (2^a - 1,2^b-1) = 1$.
+This is numerically seen to be true for values up to $a,b=100$, but no
+proof. If we assume this to be true, we can say (for $a = 2^p$)
+\[ S = (1 + a + a^2 + a^3 + \cdots + a^{q-1}) = \frac{2^{pq}-1}{2^p-1}\]
+Since $2^{pq - 1}$ is divisible by both $2^p - 1$ and $2^q - 1$,
+\[(2^p - 1,2^q-1) = 1 \implies (2^q - 1) | S\].
+
+\end{discussion}
 \end{document}

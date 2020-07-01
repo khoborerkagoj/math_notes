@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\makeatletter\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist\item\relax
+      {%
+        \bfseries{#1\@addpunct{.}}}\hspace\labelsep\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}{Corollary}[thm]
+\theoremstyle{definition}
+\newtheorem{discussion}{Discussion}[thm]
+\newtheorem*{note*}{Note}
+
+\newcommand{\nat}{\ensuremath{\mathbb{N}}}
+\newcommand{\inv}[1]{\ensuremath{{#1^{-1}}}}
+
+\begin{document}
+{\center{\huge Notes on Baby Rudin}}
+
+\section{Continuity}
+The first thing we look at is preservation of connectedness under a
+continuous function: this is what allows the intermediate value theorem
+to be true.
+\begin{thm}
+  Let $f: X \mapsto Y$ be a continuous function between metric spaces $X$
+  and $Y$. Let $E \subset X$ be connected. Then $f(E)$ is connected.
+\end{thm}
+\begin{proof}
+  We prove the contrapositive--- if we have non-empty, \emph{separated} sets
+  $A \subset f(E)$ and $B \subset f(E)$,
+  their preimages within $E$ are separated. Then if
+  \(f(E) = A \cup B\) where $A$ and $B$ are separated, $E$ must be a
+  non-connected set, which completes our proof.
+
+  Assume, then, that $A$, $B$ are subsets of $f(E)$ and
+  $\bar{A}\cap B = \phi = A \cap \bar{B}$. Define the sets
+  \begin{eqnarray*}
+    G & = f^{-1}(A) \cap E \\
+    H & = f^{-1}(B) \cap E
+  \end{eqnarray*}
+  Then we have $G$ and $H$ are disjoint (else $A$ and $B$ would not be
+  disjoint). We also have $G$ and $H$ nonempty, else $A$ and/or $B$
+  would be empty.
+
+  To show that $G$ and $H$ are separated, without loss of generality we
+  will only show that $\bar G \cup H = \phi$. Assume $g$ is a limit
+  point of $G$. If we cannot find such a point, we
+  are done, so assume one exists. As $g$ is a limit point, there exists
+  a sequence of points $\{g_i\} \subset G$ such that
+  $g_i \rightarrow g$. But then by continuity,
+  $f(g_i) \rightarrow f(g)$, or in other words, $f(g)$ is a limit point
+  of $f(A)$ (as each $f(g_i) \in A$).
+
+  By the separation of $A$ and $B$, we have $f(g)\not\in B$. Thus
+  $g\not\in H$, otherwise we would have $f(g)\in B$. Therefore,
+  $\overline G \cup H = \phi$, and we are done.
+ 
+\end{proof}
+\begin{note*}
+  Rudin has a slightly more elegant, but perhaps less satisfying
+  proof. Let $A$, $B$, $G$, $H$ be as above. As $f$ is continuous, we
+  have $\inv{f}(\bar A)$ closed. Thus
+  \[G \subset f^{-1}(\bar A) \,\implies\, \bar G \subset \inv{f}(\bar A) \]
+  As $\bar A \cap B = \phi$, we must have $\bar G \cap H = \phi$.
+\end{note*}
+\end{document}
