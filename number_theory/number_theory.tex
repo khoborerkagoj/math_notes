@@ -1,26 +1,5 @@
 \documentclass{article}
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amssymb}
-
-\makeatletter\renewenvironment{proof}[1][\proofname]{\par
-  \pushQED{\qed}%
-  \normalfont \topsep6\p@\@plus6\p@\relax
-  \trivlist\item\relax
-      {%
-        \bfseries{#1\@addpunct{.}}}\hspace\labelsep\ignorespaces
-}{%
-  \popQED\endtrivlist\@endpefalse
-}
-\makeatother
-
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{cor}{Corollary}[thm]
-\theoremstyle{definition}
-\newtheorem{discussion}{Discussion}[thm]
-
-\newcommand{\nat}{\ensuremath{\mathbb{N}}}
+\usepackage{mypkg}
 
 \begin{document}
 {\center{\huge Number theory notes}}

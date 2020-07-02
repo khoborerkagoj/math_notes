@@ -1,0 +1,28 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{mypkg}[2020/07/01 My options]
+
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{amssymb}
+
+\makeatletter\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist\item\relax
+      {%
+        \bfseries{#1\@addpunct{.}}}\hspace\labelsep\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
+\makeatother
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}{Corollary}[thm]
+\theoremstyle{definition}
+\newtheorem{discussion}{Discussion}[thm]
+\newtheorem*{note*}{Note}
+
+\newcommand{\nat}{\ensuremath{\mathbb{N}}}
+\newcommand{\inv}[1]{\ensuremath{{#1^{-1}}}}
+
